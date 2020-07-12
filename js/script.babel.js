@@ -1,42 +1,43 @@
 'use strict';
 
 var cardsArray = [{
-  'name': 'shell',
-  'img': 'img/blueshell.png'
+  'name': 'sylno',
+  'img': 'img/sylno.png'
 }, {
-  'name': 'star',
-  'img': 'img/star.png'
+  'name': 'oberezno',
+  'img': 'img/oberezno.png'
 }, {
-  'name': 'bobomb',
-  'img': 'img/bobomb.png'
+  'name': 'krasno',
+  'img': 'img/krasno.png'
 }, {
-  'name': 'mario',
-  'img': 'img/mario.png'
+  'name': 'bystro',
+  'img': 'img/bystro.png'
 }, {
-  'name': 'luigi',
-  'img': 'img/luigi.png'
+  'name': 'drot',
+  'img': 'img/drot.png'
 }, {
-  'name': 'peach',
-  'img': 'img/peach.png'
+  'name': 'orel',
+  'img': 'img/orel.png'
 }, {
-  'name': '1up',
-  'img': 'img/1up.png'
+  'name': 'lileya',
+  'img': 'img/lileya.png'
 }, {
-  'name': 'mushroom',
-  'img': 'img/mushroom.png'
+  'name': 'skob',
+  'img': 'img/skob.png'
 }, {
-  'name': 'thwomp',
-  'img': 'img/thwomp.png'
+  'name': 'strijxlop',
+  'img': 'img/strijxlop.png'
 }, {
-  'name': 'bulletbill',
-  'img': 'img/bulletbill.png'
+  'name': 'strijdiv',
+  'img': 'img/strijdiv.png'
 }, {
-  'name': 'coin',
-  'img': 'img/coin.png'
+  'name': 'vidznaka',
+  'img': 'img/vidznaka.png'
 }, {
-  'name': 'goomba',
-  'img': 'img/goomba.png'
-}];
+  'name': 'yuriy',
+  'img': 'img/yuriy.png'
+}
+];
 
 var gameGrid = cardsArray.concat(cardsArray).sort(function () {
   return 0.5 - Math.random();
@@ -46,7 +47,7 @@ var firstGuess = '';
 var secondGuess = '';
 var count = 0;
 var previousTarget = null;
-var delay = 1200;
+var delay = 2000;
 
 var game = document.getElementById('game');
 var grid = document.createElement('section');
@@ -79,6 +80,24 @@ var match = function match() {
   selected.forEach(function (card) {
     card.classList.add('match');
   });
+
+  // Check if all matches have been made
+  const all = document.querySelector('.grid').children;
+  if(Array.from(all).every(child => child.classList.contains('match'))) {
+    console.log("All children have the class match.");
+    var card = document.createElement('div');
+    card.classList.add('card-end');
+
+    var end = document.createElement('img');
+    end.classList.add('end');
+    end.classList.add('fit');
+    end.src = './img/final.png';
+
+    game.insertBefore(card, grid);
+    card.appendChild(end);
+  } else {
+    console.log('Not Finished');
+  }
 };
 
 var resetGuesses = function resetGuesses() {
@@ -89,7 +108,7 @@ var resetGuesses = function resetGuesses() {
 
   var selected = document.querySelectorAll('.selected');
   selected.forEach(function (card) {
-    card.classList.remove('selected');
+    card.classList.remove('selected');  
   });
 };
 
@@ -116,9 +135,13 @@ grid.addEventListener('click', function (event) {
     if (firstGuess && secondGuess) {
       if (firstGuess === secondGuess) {
         setTimeout(match, delay);
+
       }
       setTimeout(resetGuesses, delay);
+
     }
     previousTarget = clicked;
   }
+  
 });
+
